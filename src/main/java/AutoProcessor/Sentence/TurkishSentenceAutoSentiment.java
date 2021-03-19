@@ -3,8 +3,9 @@ package AutoProcessor.Sentence;/* Created by oguzkeremyildiz on 19.03.2021 */
 import AnnotatedSentence.AnnotatedSentence;
 import AnnotatedSentence.AnnotatedWord;
 import SentiNet.SentiNet;
-import SentiNet.SentiSynSet;
 import SentiNet.PolarityType;
+
+import java.util.Locale;
 
 public class TurkishSentenceAutoSentiment extends SentenceAutoSentiment {
 
@@ -12,34 +13,17 @@ public class TurkishSentenceAutoSentiment extends SentenceAutoSentiment {
         super(sentiNet);
     }
 
-    private PolarityType findPolarityType(Double sum) {
-        if (sum > 0.0) {
-            return PolarityType.POSITIVE;
-        } else if (sum < 0.0) {
-            return PolarityType.NEGATIVE;
-        }
-        return PolarityType.NEUTRAL;
-    }
-
-    @Override
-    public PolarityType autoSentiment(AnnotatedSentence sentence) {
-        double polarityValue = 0.0;
-        for (int i = 0; i < sentence.wordCount(); i++) {
-            AnnotatedWord word = (AnnotatedWord) sentence.getWord(i);
-            SentiSynSet sentiSynSet = sentiNet.getSentiSynSet(word.getSemantic());
-            if (sentiSynSet != null) {
-                switch (sentiSynSet.getPolarity()) {
-                    case POSITIVE:
-                        polarityValue += sentiSynSet.getPositiveScore();
-                        break;
-                    case NEGATIVE:
-                        polarityValue -= sentiSynSet.getNegativeScore();
-                        break;
-                    default:
-                        break;
+    protected PolarityType setPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index) {
+        if (index + 1 < sentence.wordCount()) {
+            AnnotatedWord nextWord = (AnnotatedWord) sentence.getWord(index + 1);
+            if (nextWord.getParse().getWord().getName().toLowerCase(new Locale("tr")).equals("değil")) {
+                if (polarityType.equals(PolarityType.POSITIVE)) {
+                    return PolarityType.NEGATIVE;
+                } else if (polarityType.equals(PolarityType.NEGATIVE)) {
+                    return PolarityType.POSITIVE;
                 }
             }
         }
-        return findPolarityType(polarityValue);
+        return polarityType;
     }
 }

@@ -1,8 +1,10 @@
 package AutoProcessor.Sentence;/* Created by oguzkeremyildiz on 19.03.2021 */
 
 import AnnotatedSentence.AnnotatedSentence;
+import AnnotatedSentence.AnnotatedWord;
 import SentiNet.PolarityType;
 import SentiNet.SentiNet;
+import SentiNet.SentiSynSet;
 
 public abstract class SentenceAutoSentiment {
 
@@ -12,5 +14,35 @@ public abstract class SentenceAutoSentiment {
         this.sentiNet = sentiNet;
     }
 
-    public abstract PolarityType autoSentiment(AnnotatedSentence sentence);
+    protected abstract PolarityType setPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index);
+
+    private PolarityType findPolarityType(Double sum) {
+        if (sum > 0.0) {
+            return PolarityType.POSITIVE;
+        } else if (sum < 0.0) {
+            return PolarityType.NEGATIVE;
+        }
+        return PolarityType.NEUTRAL;
+    }
+
+    public PolarityType autoSentiment(AnnotatedSentence sentence) {
+        double polarityValue = 0.0;
+        for (int i = 0; i < sentence.wordCount(); i++) {
+            AnnotatedWord word = (AnnotatedWord) sentence.getWord(i);
+            SentiSynSet sentiSynSet = sentiNet.getSentiSynSet(word.getSemantic());
+            if (sentiSynSet != null) {
+                switch (setPolarity(sentiSynSet.getPolarity(), sentence, i)) {
+                    case POSITIVE:
+                        polarityValue += Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
+                        break;
+                    case NEGATIVE:
+                        polarityValue -= Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return findPolarityType(polarityValue);
+    }
 }
