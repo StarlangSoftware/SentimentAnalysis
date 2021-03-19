@@ -31,12 +31,13 @@ public abstract class SentenceAutoSentiment {
             AnnotatedWord word = (AnnotatedWord) sentence.getWord(i);
             SentiSynSet sentiSynSet = sentiNet.getSentiSynSet(word.getSemantic());
             if (sentiSynSet != null) {
+                double value = Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
                 switch (setPolarity(sentiSynSet.getPolarity(), sentence, i)) {
                     case POSITIVE:
-                        polarityValue += Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
+                        polarityValue += value;
                         break;
                     case NEGATIVE:
-                        polarityValue -= Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
+                        polarityValue -= value;
                         break;
                     default:
                         break;
