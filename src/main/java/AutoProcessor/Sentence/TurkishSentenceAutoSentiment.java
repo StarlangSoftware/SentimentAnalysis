@@ -14,7 +14,7 @@ public class TurkishSentenceAutoSentiment extends SentenceAutoSentiment {
         super(sentiNet);
     }
 
-    protected PolarityType setPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index) {
+    protected PolarityType getPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index) {
         if (((AnnotatedWord) sentence.getWord(index)).getParse().containsTag(MorphologicalTag.NEGATIVE)) {
             if (polarityType.equals(PolarityType.POSITIVE)) {
                 polarityType = PolarityType.NEGATIVE;
