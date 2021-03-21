@@ -14,7 +14,7 @@ public abstract class SentenceAutoSentiment {
         this.sentiNet = sentiNet;
     }
 
-    protected abstract PolarityType setPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index);
+    protected abstract PolarityType getPolarity(PolarityType polarityType, AnnotatedSentence sentence, int index);
 
     private PolarityType findPolarityType(Double sum) {
         if (sum > 0.0) {
@@ -32,7 +32,7 @@ public abstract class SentenceAutoSentiment {
             SentiSynSet sentiSynSet = sentiNet.getSentiSynSet(word.getSemantic());
             if (sentiSynSet != null) {
                 double value = Math.max(sentiSynSet.getNegativeScore(), sentiSynSet.getPositiveScore());
-                switch (setPolarity(sentiSynSet.getPolarity(), sentence, i)) {
+                switch (getPolarity(sentiSynSet.getPolarity(), sentence, i)) {
                     case POSITIVE:
                         polarityValue += value;
                         break;
