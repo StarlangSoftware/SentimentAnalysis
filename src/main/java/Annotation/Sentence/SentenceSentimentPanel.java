@@ -28,7 +28,7 @@ public class SentenceSentimentPanel extends SentenceAnnotatorPanel {
             selectedIndex = 1;
         }
         if (word.getPolarity() != null && word.getPolarity().toString().equals("NEUTRAL")){
-            selectedIndex = 1;
+            selectedIndex = 2;
         }
         return selectedIndex;
     }
