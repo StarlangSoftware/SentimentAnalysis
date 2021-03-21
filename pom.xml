@@ -48,13 +48,8 @@
     <dependencies>
         <dependency>
             <groupId>io.github.starlangsoftware</groupId>
-            <artifactId>SentiNet</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.starlangsoftware</groupId>
-            <artifactId>AnnotatedSentence</artifactId>
-            <version>1.0.25</version>
+            <artifactId>DataCollector</artifactId>
+            <version>1.0.13</version>
         </dependency>
     </dependencies>
 
@@ -115,6 +110,32 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sentence-sentiment</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>Annotation.Sentence.TestSentenceSentimentFrame</mainClass>
+                                </manifest>
+                            </archive>
+                            <finalName>sentence-sentiment</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
             </plugin>
         </plugins>
     </build>
