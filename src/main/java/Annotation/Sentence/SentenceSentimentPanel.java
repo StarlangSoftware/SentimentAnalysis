@@ -18,17 +18,23 @@ public class SentenceSentimentPanel extends SentenceAnnotatorPanel {
         int selectedIndex = -1;
         AnnotatedWord word = (AnnotatedWord) sentence.getWord(wordIndex);
         listModel.clear();
-        listModel.addElement("POSITIVE");
-        listModel.addElement("NEGATIVE");
-        listModel.addElement("NEUTRAL");
-        if (word.getPolarity() != null && word.getPolarity().toString().equals("POSITIVE")){
-            selectedIndex = 0;
-        }
-        if (word.getPolarity() != null && word.getPolarity().toString().equals("NEGATIVE")){
-            selectedIndex = 1;
-        }
-        if (word.getPolarity() != null && word.getPolarity().toString().equals("NEUTRAL")){
-            selectedIndex = 2;
+        listModel.addElement("Pos");
+        listModel.addElement("Neg");
+        listModel.addElement("Neutral");
+        if (word.getPolarity() != null){
+            switch (word.getPolarity().toString().toLowerCase()){
+                case "pos":
+                case "positive":
+                    selectedIndex = 0;
+                    break;
+                case "neg":
+                case "negative":
+                    selectedIndex = 1;
+                    break;
+                default:
+                    selectedIndex = 2;
+                    break;
+            }
         }
         return selectedIndex;
     }
