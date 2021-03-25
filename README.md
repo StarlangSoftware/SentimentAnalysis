@@ -1,7 +1,7 @@
 For Developers
 ============
 
-You can also see [C#](https://github.com/StarlangSoftware/SentimentAnalysis-CS) repository.
+You can also see [C#](https://github.com/StarlangSoftware/SentimentAnalysis-CS) or [C++](https://github.com/StarlangSoftware/SentimentAnalysis-CPP) repository.
 
 ## Requirements
 
