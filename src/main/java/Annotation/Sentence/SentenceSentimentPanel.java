@@ -22,7 +22,7 @@ public class SentenceSentimentPanel extends SentenceAnnotatorPanel {
 
     @Override
     protected void setBounds() {
-        pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().x, ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().y + 20, 120, 80);
+        pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().getX(), ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().getY() + 20, 120, 80);
     }
 
     @Override
