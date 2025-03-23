@@ -4,7 +4,7 @@ import AnnotatedSentence.*;
 import Classification.Attribute.Attribute;
 import Classification.Attribute.DiscreteAttribute;
 import Classification.Instance.Instance;
-import Classification.Model.TreeEnsembleModel;
+import Classification.Model.Ensemble.TreeEnsembleModel;
 import MorphologicalAnalysis.MorphologicalTag;
 import SentiNet.*;
 
