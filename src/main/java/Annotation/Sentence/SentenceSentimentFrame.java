@@ -10,7 +10,7 @@ public class SentenceSentimentFrame extends SentenceAnnotatorFrame {
     }
 
     @Override
-    protected SentenceAnnotatorPanel generatePanel(String currentPath, String rawFileName) {
+    public SentenceAnnotatorPanel generatePanel(String currentPath, String rawFileName) {
         return new SentenceSentimentPanel(currentPath, rawFileName);
     }
 }
